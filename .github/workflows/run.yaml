@@ -1,0 +1,52 @@
+name: Run
+
+on:
+  schedule:
+    # The docs suggest not to schedule this on the full hour:
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+    - cron: '42 0,6,12,18 * * *'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        branch:
+          - REL_12_STABLE
+          - REL_13_STABLE
+          - REL_14_STABLE
+          - REL_15_STABLE
+          - REL_16_STABLE
+          - HEAD
+    name: ${{ matrix.branch }}
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.2.0
+      - name: Build Dockerfile
+        uses: docker/build-push-action@v5.3.0
+        with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          context: .
+          load: true
+          push: false
+          tags: buildfarm-client:alpine
+      - uses: actions/cache@v4.0.2
+        with:
+          path: buildroot
+          key: run-alpine-autoconf-${{ matrix.branch }}
+      - name: Run buildfarm client
+        run: |
+          mkdir -p buildroot
+          docker run --rm \
+            -v ./buildroot:/home/alpine \
+            -u "$(id -u):$(id -g)" \
+            buildfarm-client:alpine \
+              --test \
+              --config autoconf.conf \
+              --delay-check \
+              ${{ matrix.branch }}
+              # TODO: Remove --delay-check once this is fixed:
+              # https://www.postgresql.org/message-id/flat/fddd1cd6-dc16-40a2-9eb5-d7fef2101488%40technowledgy.de
