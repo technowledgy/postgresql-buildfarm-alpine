@@ -10,8 +10,7 @@ RUN apk add \
         flex \
         git \
         krb5-dev \
-        # TODO: Make meson find this instead of readline \
-        #libedit-dev \
+        libedit-dev \
         libxml2-dev \
         libxslt-dev \
         linux-headers \
@@ -28,7 +27,6 @@ RUN apk add \
         perl-lwp-protocol-https \
         perl-mozilla-ca \
         python3-dev \
-        readline-dev \
         tcl-dev \
         zlib-dev \
         zstd-dev
