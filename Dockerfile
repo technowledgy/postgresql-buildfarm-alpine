@@ -28,6 +28,7 @@ RUN addgroup -g 1000 alpine \
         tcl-dev \
         zlib-dev
 
+# renovate: datasource=github-tags depName=buildfarm-client lookupName=PGBuildFarm/client-code versioning=redhat extractVersion=REL_(?<version>.*)
 ARG BUILDFARM_CLIENT_VERSION=REL_17
 
 RUN git clone --depth 1 --branch ${BUILDFARM_CLIENT_VERSION} https://github.com/PGBuildFarm/client-code /usr/src
