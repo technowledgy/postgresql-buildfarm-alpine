@@ -12,6 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        builder:
+          - autoconf
         branch:
           - REL_12_STABLE
           - REL_13_STABLE
@@ -19,7 +21,12 @@ jobs:
           - REL_15_STABLE
           - REL_16_STABLE
           - HEAD
-    name: ${{ matrix.branch }}
+        include:
+          - builder: meson
+            branch: REL_16_STABLE
+          - builder: meson
+            branch: HEAD
+    name: ${{ matrix.branch }} (${{ matrix.builder }})
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Set up Docker Buildx
@@ -36,7 +43,7 @@ jobs:
       - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: buildroot
-          key: run-alpine-autoconf-${{ matrix.branch }}
+          key: run-alpine-${{ matrix.builder }}-${{ matrix.branch }}
       - name: Run buildfarm client
         run: |
           mkdir -p buildroot
@@ -45,7 +52,7 @@ jobs:
             -u "$(id -u):$(id -g)" \
             buildfarm-client:alpine \
               --test \
-              --config autoconf.conf \
+              --config ${{ matrix.builder }}.conf \
               --delay-check \
               ${{ matrix.branch }}
               # TODO: Remove --delay-check once this is fixed:

@@ -9,7 +9,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: Test autoconf
+    strategy:
+      fail-fast: false
+      matrix:
+        builder:
+          - autoconf
+          - meson
+    name: Test ${{ matrix.builder }}
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Set up Docker Buildx
@@ -26,8 +32,8 @@ jobs:
       - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: buildroot
-          key: test-alpine-autoconf
-      - name: Test autoconf.conf
+          key: test-alpine-${{ matrix.builder }}
+      - name: Test ${{ matrix.builder }}.conf
         run: |
           mkdir -p buildroot
           docker run --rm \
@@ -35,7 +41,7 @@ jobs:
             -u "$(id -u):$(id -g)" \
             buildfarm-client:alpine \
               --test \
-              --config autoconf.conf \
+              --config ${{ matrix.builder }}.conf \
               --delay-check
               # TODO: Remove --delay-check once this is fixed:
               # https://www.postgresql.org/message-id/flat/fddd1cd6-dc16-40a2-9eb5-d7fef2101488%40technowledgy.de
