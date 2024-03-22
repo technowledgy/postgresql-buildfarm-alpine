@@ -1,0 +1,5 @@
+failure-threshold: style
+ignored:
+  # repository pinning is better than package pinning for apk
+  # https://stschindler.medium.com/the-problem-with-docker-and-alpines-package-pinning-18346593e891
+  - DL3018
