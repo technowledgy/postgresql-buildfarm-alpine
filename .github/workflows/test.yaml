@@ -53,10 +53,7 @@ jobs:
               --from-source /mnt/source \
               --config ${{ matrix.builder }}.conf \
               --skip-steps=recovery-check \
-              --skip-suites=recovery \
-              --delay-check
-              # TODO: Remove --delay-check once this is fixed:
-              # https://www.postgresql.org/message-id/flat/fddd1cd6-dc16-40a2-9eb5-d7fef2101488%40technowledgy.de
+              --skip-suites=recovery
       - uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         if: always()
         with:

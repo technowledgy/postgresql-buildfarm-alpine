@@ -52,13 +52,10 @@ COPY docker-entrypoint.sh /
 COPY *.conf /usr/src
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-# TODO: Remove --delay-check once this is fixed:
-# https://www.postgresql.org/message-id/flat/fddd1cd6-dc16-40a2-9eb5-d7fef2101488%40technowledgy.de
 CMD [ \
   "--test", \
   "--config", \
   "autoconf.conf", \
   "--skip-steps=recovery-check", \
-  "--skip-suites=recovery", \
-  "--delay-check" \
+  "--skip-suites=recovery" \
 ]
