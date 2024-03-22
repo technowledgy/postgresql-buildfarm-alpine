@@ -11,6 +11,7 @@ RUN apk add \
         curl-dev \
         flex \
         git \
+        icu-dev \
         krb5 \
         krb5-dev \
         krb5-server \
@@ -23,6 +24,7 @@ RUN apk add \
         llvm20-dev \
         lz4-dev \
         meson \
+        musl-locales \
         ninja \
         numactl-dev \
         nss_wrapper \
