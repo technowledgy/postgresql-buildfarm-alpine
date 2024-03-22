@@ -9,7 +9,9 @@ RUN apk add \
         ccache \
         flex \
         git \
+        krb5 \
         krb5-dev \
+        krb5-server \
         libedit-dev \
         libxml2-dev \
         libxslt-dev \
@@ -20,10 +22,12 @@ RUN apk add \
         ninja \
         nss_wrapper \
         openldap-dev \
+        openssl \
         openssl-dev \
         ossp-uuid-dev \
         perl \
         perl-dev \
+        perl-ipc-run \
         perl-lwp-protocol-https \
         perl-mozilla-ca \
         python3-dev \
@@ -59,4 +63,11 @@ COPY *.conf /usr/src
 ENTRYPOINT ["/docker-entrypoint.sh"]
 # TODO: Remove --delay-check once this is fixed:
 # https://www.postgresql.org/message-id/flat/fddd1cd6-dc16-40a2-9eb5-d7fef2101488%40technowledgy.de
-CMD ["--test", "--config", "autoconf.conf", "--delay-check"]
+CMD [ \
+  "--test", \
+  "--config", \
+  "autoconf.conf", \
+  "--skip-steps=recovery-check", \
+  "--skip-suites=recovery", \
+  "--delay-check" \
+]

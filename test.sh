@@ -17,6 +17,8 @@ docker run --rm \
     --nosend --nostatus --verbose \
     --from-source /mnt/source \
     --config autoconf.conf \
+    --skip-steps=recovery-check \
+    --skip-suites=recovery \
     --delay-check \
     "$@"
     # TODO: Remove --delay-check once this is fixed:

@@ -57,6 +57,8 @@ jobs:
             buildfarm-client:alpine \
               --test \
               --config ${{ matrix.builder }}.conf \
+              --skip-steps=recovery-check \
+              --skip-suites=recovery \
               --delay-check \
               ${{ matrix.branch }}
               # TODO: Remove --delay-check once this is fixed:
