@@ -15,6 +15,7 @@ RUN apk add \
         libxml2-dev \
         libxslt-dev \
         linux-headers \
+        linux-pam-dev \
         nss_wrapper \
         openldap-dev \
         openssl-dev \
