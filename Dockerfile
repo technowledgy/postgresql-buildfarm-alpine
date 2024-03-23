@@ -19,6 +19,7 @@ RUN apk add \
         nss_wrapper \
         openldap-dev \
         openssl-dev \
+        ossp-uuid-dev \
         perl \
         perl-dev \
         perl-lwp-protocol-https \
