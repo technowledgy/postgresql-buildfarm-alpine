@@ -23,6 +23,8 @@ RUN apk add \
         meson \
         ninja \
         nss_wrapper \
+        openldap \
+        openldap-clients \
         openldap-dev \
         openssl \
         openssl-dev \
