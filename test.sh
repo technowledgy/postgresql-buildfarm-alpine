@@ -17,6 +17,4 @@ docker run --rm \
     --test \
     --from-source /mnt/source \
     --config autoconf.conf \
-    --skip-steps=recovery-check \
-    --skip-suites=recovery \
     "$@"

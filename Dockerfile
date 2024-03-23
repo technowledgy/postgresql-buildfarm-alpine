@@ -34,6 +34,7 @@ RUN apk add \
         perl-mozilla-ca \
         python3-dev \
         tcl-dev \
+        tini \
         zlib-dev \
         zstd-dev
 
@@ -51,11 +52,5 @@ RUN git apply client.patch
 COPY docker-entrypoint.sh /
 COPY *.conf /usr/src
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD [ \
-  "--test", \
-  "--config", \
-  "autoconf.conf", \
-  "--skip-steps=recovery-check", \
-  "--skip-suites=recovery" \
-]
+ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
+CMD ["--test", "--config", "autoconf.conf"]
