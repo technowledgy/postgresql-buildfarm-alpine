@@ -56,9 +56,6 @@ EOF
 COPY docker-entrypoint.sh /
 COPY *.conf /usr/src
 
-WORKDIR /buildroot
-VOLUME /buildroot
-
 ENTRYPOINT ["/docker-entrypoint.sh"]
 # TODO: Remove --delay-check once this is fixed:
 # https://www.postgresql.org/message-id/flat/fddd1cd6-dc16-40a2-9eb5-d7fef2101488%40technowledgy.de

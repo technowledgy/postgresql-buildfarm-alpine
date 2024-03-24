@@ -5,12 +5,17 @@ set -eu
 
 docker build .
 
-mkdir -p buildroot
+rm -rf source
+git clone --depth 1 https://github.com/postgres/postgres.git source
+
+mkdir -p build
 docker run --rm \
-  -v ./buildroot:/home/alpine \
+  -v ./build:/mnt/build \
+  -v ./source:/mnt/source \
   -u "$(id -u):$(id -g)" \
   "$(docker build -q .)" \
-    --test \
+    --nosend --nostatus --verbose \
+    --from-source /mnt/source \
     --config autoconf.conf \
     --delay-check \
     "$@"
