@@ -51,6 +51,10 @@ jobs:
         run: |
           mkdir -p build
           docker run --rm \
+            -e AUTOCONF_ANIMAL=${{ vars.AUTOCONF_ANIMAL }} \
+            -e AUTOCONF_SECRET=${{ secrets.AUTOCONF_SECRET }} \
+            -e MESON_ANIMAL=${{ vars.MESON_ANIMAL }} \
+            -e MESON_SECRET=${{ secrets.MESON_SECRET }} \
             -v ./build:/mnt/build \
             -v ./source:/mnt/source \
             -u "$(id -u):$(id -g)" \
