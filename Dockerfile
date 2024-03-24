@@ -7,6 +7,7 @@ RUN apk add \
         bison \
         build-base \
         ccache \
+        clang17 \
         flex \
         git \
         krb5 \
@@ -17,6 +18,7 @@ RUN apk add \
         libxslt-dev \
         linux-headers \
         linux-pam-dev \
+        llvm17-dev \
         lz4-dev \
         meson \
         ninja \
