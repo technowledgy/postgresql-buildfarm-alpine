@@ -6,6 +6,11 @@ on:
     branches:
       - main
 
+concurrency:
+  # Terminate all previous runs of the same workflow for pull requests
+  group: test-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
