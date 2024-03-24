@@ -67,6 +67,6 @@ jobs:
       - uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         if: always()
         with:
-          name: ${{ matrix.builder }}-logs
+          name: ${{ matrix.builder }}-${{ matrix.branch }}-logs
           path: build/**/*.log
           if-no-files-found: error
