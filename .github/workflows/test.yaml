@@ -23,13 +23,12 @@ jobs:
       - name: Build Dockerfile
         uses: docker/build-push-action@2cdde995de11925a030ce8070c3d77a52ffcf1c0 # v5.3.0
         with:
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           context: .
           load: true
           push: false
           tags: buildfarm-client:alpine
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+      - uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        id: restore-cache
         with:
           path: buildroot
           key: test-alpine-${{ matrix.builder }}
@@ -45,3 +44,8 @@ jobs:
               --delay-check
               # TODO: Remove --delay-check once this is fixed:
               # https://www.postgresql.org/message-id/flat/fddd1cd6-dc16-40a2-9eb5-d7fef2101488%40technowledgy.de
+      - uses: actions/cache/save@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: buildroot
+          key: ${{ steps.restore-cache.outputs.cache-primary-key }}
