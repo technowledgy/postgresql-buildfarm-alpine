@@ -1,0 +1,38 @@
+diff --git a/PGBuild/Modules/TestUpgrade.pm b/PGBuild/Modules/TestUpgrade.pm
+index ad3e00e..faa640c 100644
+--- a/PGBuild/Modules/TestUpgrade.pm
++++ b/PGBuild/Modules/TestUpgrade.pm
+@@ -48,7 +48,8 @@ sub setup
+ 
+ 	# this obviates the need of any meson support in this module, as
+ 	# this has been in since release 15
+-	return if -d "$buildroot/$branch/pgsql/src/bin/pg_upgrade/t";
++	my $srcdir = $from_source || "$buildroot/$branch/pgsql";
++	return if -d "$srcdir/src/bin/pg_upgrade/t";
+ 
+ 	die
+ 	  "overly long build root $buildroot will cause upgrade problems - try something shorter than 46 chars"
+diff --git a/run_build.pl b/run_build.pl
+index 107c135..e79c581 100755
+--- a/run_build.pl
++++ b/run_build.pl
+@@ -1620,13 +1620,15 @@ sub _meson_env
+ 	# these should be safe to appear on the log and could be required
+ 	# for running tests
+ 	my @safe_set = qw(
+-	  PATH
+-	  PGUSER PGHOST PG_TEST_PORT_DIR PG_TEST_EXTRA
++	  PATH PGUSER PGHOST
+ 	  PG_TEST_USE_UNIX_SOCKETS PG_REGRESS_SOCK_DIR
+-	  SystemRoot TEMP TMP MSYS
+-	  TEMP_CONFIG  PGCTLTIMEOUT
++	  SystemRoot TEMP TMP MSYS TEMP_CONFIG
+ 	  USER USERNAME USERDOMAIN);
+ 
++	# variables specified in build_env are always required by definition
++	# and should be safe to appear in the logs, too.
++	push(@safe_set, keys %{$PGBuild::conf{build_env}});
++
+ 	foreach my $setting (@safe_set)
+ 	{
+ 		my $v = $ENV{$setting};

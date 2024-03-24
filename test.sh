@@ -14,7 +14,7 @@ docker run --rm \
   -v ./source:/mnt/source \
   -u "$(id -u):$(id -g)" \
   "$(docker build -q .)" \
-    --nosend --nostatus --verbose \
+    --test \
     --from-source /mnt/source \
     --config autoconf.conf \
     --skip-steps=recovery-check \

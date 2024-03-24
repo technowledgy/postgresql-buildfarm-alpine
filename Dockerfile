@@ -45,19 +45,8 @@ RUN git clone --depth 1 --branch ${BUILDFARM_CLIENT_VERSION} https://github.com/
 WORKDIR /usr/src
 
 # TODO: Upstream this patch to PGBuildFarm/client-code
-RUN git apply - <<EOF
---- a/run_build.pl
-+++ b/run_build.pl
-@@ -1620,7 +1620,7 @@ sub _meson_env
- 	# these should be safe to appear on the log and could be required
- 	# for running tests
- 	my @safe_set = qw(
--	  PATH
-+	  PATH LD_PRELOAD NSS_WRAPPER_PASSWD NSS_WRAPPER_GROUP
- 	  PGUSER PGHOST PG_TEST_PORT_DIR PG_TEST_EXTRA
- 	  PG_TEST_USE_UNIX_SOCKETS PG_REGRESS_SOCK_DIR
- 	  SystemRoot TEMP TMP MSYS
-EOF
+COPY client.patch .
+RUN git apply client.patch
 
 COPY docker-entrypoint.sh /
 COPY *.conf /usr/src
