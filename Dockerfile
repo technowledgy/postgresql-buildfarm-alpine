@@ -9,6 +9,7 @@ RUN apk add \
         ccache \
         clang17 \
         flex \
+        gettext-tiny-dev \
         git \
         krb5 \
         krb5-dev \
@@ -17,7 +18,6 @@ RUN apk add \
         libxml2-dev \
         libxslt-dev \
         linux-headers \
-        linux-pam-dev \
         llvm17-dev \
         lz4-dev \
         meson \
