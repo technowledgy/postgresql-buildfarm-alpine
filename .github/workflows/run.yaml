@@ -39,6 +39,16 @@ jobs:
           load: true
           push: false
           tags: buildfarm-client:alpine
+      - name: Update OS and Compiler versions
+        if: matrix.branch == 'HEAD'
+        run: |
+          docker run --rm \
+            -e ANIMAL=${{ matrix.builder == 'autoconf' && vars.AUTOCONF_ANIMAL || vars.MESON_ANIMAL }} \
+            -e SECRET=${{ matrix.builder == 'autoconf' && secrets.AUTOCONF_SECRET || secrets.MESON_SECRET }} \
+            --entrypoint "" \
+            buildfarm-client:alpine \
+              ./update.sh \
+              --config ${{ matrix.builder }}.conf
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           repository: postgres/postgres
