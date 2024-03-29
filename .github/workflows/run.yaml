@@ -43,6 +43,9 @@ jobs:
           repository: postgres/postgres
           ref: ${{ matrix.branch != 'HEAD' && matrix.branch || '' }}
           path: source
+          # TODO: Change to shallow-since once this is solved:
+          # https://github.com/actions/checkout/issues/947
+          fetch-depth: 100
       - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: build
