@@ -15,6 +15,5 @@ docker run --rm \
   -u "$(id -u):$(id -g)" \
   "$(docker build -q .)" \
     --test \
-    --from-source /mnt/source \
     --config autoconf.conf \
     "$@"
