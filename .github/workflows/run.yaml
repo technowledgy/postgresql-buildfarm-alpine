@@ -4,13 +4,14 @@ on:
   schedule:
     # The docs suggest not to schedule this on the full hour:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
-    - cron: '42 0,6,12,18 * * *'
+    - cron: '42 0,8,16 * * *'
 
 jobs:
   run:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         builder:
           - autoconf
