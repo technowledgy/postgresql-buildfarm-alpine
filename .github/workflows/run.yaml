@@ -48,6 +48,7 @@ jobs:
           # https://github.com/actions/checkout/issues/947
           # TODO: This possibly breaks reporting of the correct commit hash to the build farm server
           # fetch-depth: 100
+          fetch-depth: 0
       - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: build
