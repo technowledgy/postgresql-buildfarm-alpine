@@ -49,10 +49,13 @@ jobs:
           # TODO: This possibly breaks reporting of the correct commit hash to the build farm server
           # fetch-depth: 100
           fetch-depth: 0
+      - id: postgres
+        run: echo "commit=$(git -C source rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
       - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: build
-          key: run-alpine-${{ matrix.builder }}-${{ matrix.branch }}
+          key: run-alpine-${{ matrix.builder }}-${{ matrix.branch }}-${{ steps.postgres.outputs.commit }}
+          restore-keys: run-alpine-${{ matrix.builder }}-${{ matrix.branch }}-
       - name: Run buildfarm client
         run: |
           mkdir -p build
