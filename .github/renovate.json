@@ -2,11 +2,15 @@
   "extends": [
     "config:best-practices",
     "helpers:pinGitHubActionDigestsToSemver",
-    "regexManagers:dockerfileVersions"
+    "customManagers:dockerfileVersions"
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "patch",
+        "pin",
+        "digest"
+      ],
       "automerge": true
     }
   ]
