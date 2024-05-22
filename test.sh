@@ -5,6 +5,12 @@ set -eu
 
 docker build .
 
+docker run --rm \
+  --entrypoint "" \
+  "$(docker build -q .)" \
+    ./update.sh \
+    --config autoconf.conf
+
 rm -rf source
 git clone --depth 1 https://github.com/postgres/postgres.git source
 

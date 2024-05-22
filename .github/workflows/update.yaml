@@ -1,0 +1,35 @@
+name: Update personality
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        builder:
+          - autoconf
+          - meson
+    name: Update personality (${{ matrix.builder }})
+    steps:
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@d70bba72b1f3fd22344832f00baa16ece964efeb # v3.3.0
+      - name: Build Dockerfile
+        uses: docker/build-push-action@2cdde995de11925a030ce8070c3d77a52ffcf1c0 # v5.3.0
+        with:
+          context: .
+          load: true
+          push: false
+          tags: buildfarm-client:alpine
+      - name: Update OS and Compiler versions
+        run: |
+          docker run --rm \
+            -e ANIMAL=${{ matrix.builder == 'autoconf' && vars.AUTOCONF_ANIMAL || vars.MESON_ANIMAL }} \
+            -e SECRET=${{ matrix.builder == 'autoconf' && secrets.AUTOCONF_SECRET || secrets.MESON_SECRET }} \
+            --entrypoint "" \
+            buildfarm-client:alpine \
+              ./update.sh \
+              --config ${{ matrix.builder }}.conf
