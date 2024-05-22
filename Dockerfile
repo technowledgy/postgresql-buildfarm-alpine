@@ -53,6 +53,7 @@ RUN git apply client.patch
 
 COPY docker-entrypoint.sh /
 COPY *.conf /usr/src
+COPY update.sh /usr/src
 
 ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
 CMD ["--test", "--config", "autoconf.conf"]

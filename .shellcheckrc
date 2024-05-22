@@ -1,0 +1,2 @@
+# disable "not following /etc/os-release" warning
+disable=SC1091
