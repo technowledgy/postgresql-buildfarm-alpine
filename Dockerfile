@@ -7,7 +7,7 @@ RUN apk add \
         bison \
         build-base \
         ccache \
-        clang17 \
+        clang18 \
         flex \
         git \
         krb5 \
@@ -18,7 +18,7 @@ RUN apk add \
         libxslt-dev \
         linux-headers \
         linux-pam-dev \
-        llvm17-dev \
+        llvm18-dev \
         lz4-dev \
         meson \
         ninja \
@@ -39,6 +39,9 @@ RUN apk add \
         tini \
         zlib-dev \
         zstd-dev
+
+ENV CLANG=/usr/lib/llvm18/bin/clang
+ENV LLVM_CONFIG=/usr/lib/llvm18/bin/llvm-config
 
 # renovate: datasource=github-tags depName=buildfarm-client lookupName=PGBuildFarm/client-code versioning=redhat extractVersion=REL_(?<version>.*)
 ARG BUILDFARM_CLIENT_VERSION=REL_17
