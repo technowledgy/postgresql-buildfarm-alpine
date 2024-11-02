@@ -50,10 +50,6 @@ RUN git clone --depth 1 --branch REL_${BUILDFARM_CLIENT_VERSION} https://github.
 
 WORKDIR /usr/src
 
-# TODO: Upstream this patch to PGBuildFarm/client-code
-COPY client.patch .
-RUN git apply client.patch
-
 COPY docker-entrypoint.sh /
 COPY *.conf /usr/src
 COPY update.sh /usr/src
