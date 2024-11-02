@@ -44,9 +44,9 @@ ENV CLANG=/usr/lib/llvm18/bin/clang
 ENV LLVM_CONFIG=/usr/lib/llvm18/bin/llvm-config
 
 # renovate: datasource=github-tags depName=buildfarm-client lookupName=PGBuildFarm/client-code versioning=redhat extractVersion=REL_(?<version>.*)
-ARG BUILDFARM_CLIENT_VERSION=REL_17
+ARG BUILDFARM_CLIENT_VERSION=17
 
-RUN git clone --depth 1 --branch ${BUILDFARM_CLIENT_VERSION} https://github.com/PGBuildFarm/client-code /usr/src
+RUN git clone --depth 1 --branch REL_${BUILDFARM_CLIENT_VERSION} https://github.com/PGBuildFarm/client-code /usr/src
 
 WORKDIR /usr/src
 
