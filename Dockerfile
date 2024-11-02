@@ -44,15 +44,11 @@ ENV CLANG=/usr/lib/llvm18/bin/clang
 ENV LLVM_CONFIG=/usr/lib/llvm18/bin/llvm-config
 
 # renovate: datasource=github-tags depName=buildfarm-client lookupName=PGBuildFarm/client-code versioning=redhat extractVersion=REL_(?<version>.*)
-ARG BUILDFARM_CLIENT_VERSION=17
+ARG BUILDFARM_CLIENT_VERSION=18
 
 RUN git clone --depth 1 --branch REL_${BUILDFARM_CLIENT_VERSION} https://github.com/PGBuildFarm/client-code /usr/src
 
 WORKDIR /usr/src
-
-# TODO: Upstream this patch to PGBuildFarm/client-code
-COPY client.patch .
-RUN git apply client.patch
 
 COPY docker-entrypoint.sh /
 COPY *.conf /usr/src
