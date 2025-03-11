@@ -8,6 +8,7 @@ RUN apk add \
         build-base \
         ccache \
         clang18 \
+        curl-dev \
         flex \
         git \
         krb5 \
