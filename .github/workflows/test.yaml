@@ -51,6 +51,7 @@ jobs:
             -v ./build:/mnt/build \
             -v ./source:/mnt/source \
             -u "$(id -u):$(id -g)" \
+            --privileged \
             buildfarm-client:alpine \
               --test \
               --config ${{ matrix.builder }}.conf
