@@ -24,6 +24,7 @@ RUN apk add \
         lz4-dev \
         meson \
         ninja \
+        numactl-dev \
         nss_wrapper \
         openldap \
         openldap-clients \
