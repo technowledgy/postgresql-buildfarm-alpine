@@ -15,6 +15,7 @@ RUN apk add \
         krb5-dev \
         krb5-server \
         libedit-dev \
+        liburing-dev \
         libxml2-dev \
         libxslt-dev \
         linux-headers \
