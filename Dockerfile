@@ -7,7 +7,7 @@ RUN apk add \
         bison \
         build-base \
         ccache \
-        clang18 \
+        clang19 \
         curl-dev \
         flex \
         gettext-tiny-dev \
@@ -21,7 +21,7 @@ RUN apk add \
         libxslt-dev \
         linux-headers \
         linux-pam-dev \
-        llvm18-dev \
+        llvm19-dev \
         lz4-dev \
         meson \
         ninja \
@@ -44,8 +44,8 @@ RUN apk add \
         zlib-dev \
         zstd-dev
 
-ENV CLANG=/usr/lib/llvm18/bin/clang
-ENV LLVM_CONFIG=/usr/lib/llvm18/bin/llvm-config
+ENV CLANG=/usr/lib/llvm19/bin/clang
+ENV LLVM_CONFIG=/usr/lib/llvm19/bin/llvm-config
 
 # renovate: datasource=github-tags depName=buildfarm-client lookupName=PGBuildFarm/client-code versioning=regex:^(?<major>\d+)(_(?<minor>\d+))?$ extractVersion=REL_(?<version>.*)
 ARG BUILDFARM_CLIENT_VERSION=19_1
