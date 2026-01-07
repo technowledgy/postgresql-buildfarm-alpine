@@ -10,6 +10,7 @@ RUN apk add \
         clang20 \
         curl-dev \
         flex \
+        gettext-tiny-dev \
         git \
         krb5 \
         krb5-dev \
