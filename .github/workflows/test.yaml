@@ -38,7 +38,7 @@ jobs:
           path: source
       - id: postgres
         run: echo "commit=$(git -C source rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      - uses: actions/cache/restore@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         id: restore-cache
         with:
           path: build
@@ -61,7 +61,7 @@ jobs:
           name: ${{ matrix.builder }}-logs
           path: build/**/*.log
           if-no-files-found: error
-      - uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      - uses: actions/cache/save@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         if: github.ref == 'refs/heads/main'
         with:
           path: build
